@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Agent {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  leads     Lead[]
+}
+
+model Lead {
+  id               String   @id @default(cuid())
+  name             String
+  phone            String   @unique
+  source           String   // WhatsApp, Website, etc.
+  status           String   // NEW, CONTACTED, etc.
+  agentId          String?
+  agent            Agent?   @relation(fields: [agentId], references: [id])
+  createdAt        DateTime @default(now())
+  firstRespondedAt DateTime? 
+  lastActivityAt   DateTime @default(now())
+  
+  conversations    Conversation[]
+  visits           Visit[]
+  reminders        Reminder[]
+}
+
+model Conversation {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  type      String   // MESSAGE, NOTE, SYSTEM_EVENT
+  body      String
+  createdAt DateTime @default(now())
+}
+
+model Visit {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  property  String
+  visitDate DateTime
+  outcome   String   // PENDING, BOOKED, CONSIDERING, NOT_INTERESTED
+}
+
+model Reminder {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id])
+  type      String   // DAY_1, DAY_3, DAY_7
+  status    String   // PENDING, DISMISSED
+  createdAt DateTime @default(now())
+}
