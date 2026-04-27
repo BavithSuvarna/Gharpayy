@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-
   :root {
     --background: #f8fafc;
     --foreground: #0f172a;
@@ -17,15 +16,15 @@
   }
 
   .dark {
-    --background: #0px000;
+    --background: #020617;
     --foreground: #f8fafc;
     --primary: #6366f1;
     --primary-foreground: #ffffff;
-    --sidebar: rgba(15, 23, 42, 0.6);
-    --border: rgba(255, 255, 255, 0.1);
-    --card: rgba(30, 41, 59, 0.7);
+    --sidebar: rgba(2, 6, 23, 0.6);
+    --border: rgba(255, 255, 255, 0.08);
+    --card: rgba(15, 23, 42, 0.5);
     --card-foreground: #f8fafc;
-    --glass: rgba(15, 23, 42, 0.7);
+    --glass: rgba(15, 23, 42, 0.6);
   }
 }
 
@@ -34,19 +33,50 @@ body {
   background: var(--background);
   font-family: 'Inter', sans-serif;
   background-image: 
-    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
-    radial-gradient(at 50% 0%, hsla(225,39%,30%,0.2) 0, transparent 50%), 
-    radial-gradient(at 100% 0%, hsla(339,49%,30%,0.15) 0, transparent 50%);
+    radial-gradient(at 0% 0%, rgba(30, 27, 75, 0.6) 0, transparent 40%), 
+    radial-gradient(at 50% 0%, rgba(15, 23, 42, 0.8) 0, transparent 60%), 
+    radial-gradient(at 100% 0%, rgba(76, 29, 149, 0.2) 0, transparent 40%);
   background-attachment: fixed;
-  background-color: #020617; /* Dark mode by default for premium feel */
+  background-color: #020617; /* Deep slate base */
   color: #f8fafc;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-[var(--card)] backdrop-blur-xl border border-[var(--border)] shadow-xl;
+    @apply bg-[var(--card)] backdrop-blur-2xl border border-[var(--border)] shadow-[0_8px_30px_rgb(0,0,0,0.12)];
   }
   .glass-sidebar {
-    @apply bg-[var(--sidebar)] backdrop-blur-2xl border-r border-[var(--border)];
+    @apply bg-[var(--sidebar)] backdrop-blur-3xl border-r border-[var(--border)];
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.4s ease-out forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

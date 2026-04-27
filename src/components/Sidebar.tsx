@@ -33,13 +33,16 @@ export default function Sidebar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${isActive
-                                ? 'bg-indigo-500/10 text-indigo-400'
-                                : 'text-gray-400 hover:text-gray-100 hover:bg-white/5'
+                            className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-300 group overflow-hidden ${isActive
+                                ? 'bg-indigo-500/10 text-indigo-400 shadow-[inset_0_0_20px_rgba(79,70,229,0.1)]'
+                                : 'text-gray-400 hover:text-gray-100 hover:bg-white/[0.04]'
                                 }`}
                         >
-                            <item.icon className={`w-5 h-5 transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-110'}`} />
-                            <span className="font-medium text-sm">{item.name}</span>
+                            {isActive && (
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-500 rounded-r-full shadow-[0_0_10px_#4f46e5]" />
+                            )}
+                            <item.icon className={`w-5 h-5 transition-transform duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_8px_rgba(79,70,229,0.6)]' : 'group-hover:scale-110'}`} />
+                            <span className="font-medium text-sm tracking-wide">{item.name}</span>
                         </Link>
                     );
                 })}
